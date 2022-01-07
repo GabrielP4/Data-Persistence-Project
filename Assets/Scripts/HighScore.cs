@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class HighScore : MonoBehaviour
 {
     public static HighScore Instance;
-    public string playerName;
+    public string currentPlayerName;
+    public string highScorePlayerName;
     public GameObject inputField;
     public GameObject highScoreText;
 
@@ -25,7 +26,7 @@ public class HighScore : MonoBehaviour
 
     public void StoreName()
     {
-        playerName = inputField.GetComponent<Text>().text;
-        highScoreText.GetComponent<Text>().text = "Best score : " + playerName + " : 0";
+        currentPlayerName = inputField.GetComponent<Text>().text;
+        //highScoreText.GetComponent<Text>().text = "Best score : " + highScorePlayerName + " : 0";
     }
 }

@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MainManager : MonoBehaviour
 {
+    #region moj
+    public int bestScore;
+    public GameObject highScoreText;
+    #endregion      
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
@@ -13,19 +17,11 @@ public class MainManager : MonoBehaviour
     private bool m_Started = false;
     private int m_Points;
     private bool m_GameOver = false;
-    #region mój syf
-    public GameObject highScoreText;
-    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
-        #region Kolejny syf
-        if (HighScore.Instance != null)
-        {
-            // highScoreText = "Best Score : " + HighScore.Instance.playerName + " : 0"
-        }
-
-        #endregion
+        ScoreText.text = HighScore.Instance.currentPlayerName + $" Score : 0"; //moje
 
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
@@ -66,16 +62,16 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = HighScore.Instance.currentPlayerName + $" Score : {m_Points}";
     }
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        if (m_Points > bestScore)
+        {
+            highScoreText.GetComponent<Text>().text = " Best score : " + HighScore.Instance.currentPlayerName + $" {m_Points}";
+        }
     }
-    //tutaj ma być implementacja pobrania i wyświetlenia nicku
-    public void NewNameSelected(string playerName)
-    {
-        HighScore.Instance.playerName = playerName;
-    }
+
 }

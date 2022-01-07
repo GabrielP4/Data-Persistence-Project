@@ -5,25 +5,9 @@ using UnityEditor;
 #endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 [DefaultExecutionOrder(1000)]
 public class MenuUIHandler : MonoBehaviour
 {
-    public void NewPlayerName(string playerName)
-    {
-        // HighScore.Instance.playerName = playerName;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void StartNew()
     {
         SceneManager.LoadScene(1);
