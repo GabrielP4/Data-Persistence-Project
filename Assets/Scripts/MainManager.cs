@@ -15,14 +15,12 @@ public class MainManager : MonoBehaviour
     public Text ScoreText;
     public GameObject GameOverText;
     private bool m_Started = false;
-    private int m_Points;
+    public int m_Points { get; private set; }
     private bool m_GameOver = false;
-
     // Start is called before the first frame update
     void Start()
     {
-        ScoreText.text = HighScore.Instance.currentPlayerName + $" Score : 0"; //moje
-
+        highScoreText.GetComponent<Text>().text = "Best score : " + HighScore.Instance.currentPlayerName + " : " + HighScore.Instance.highestScore.ToString(); //moje
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         int[] pointCountArray = new[] { 1, 1, 2, 2, 5, 5 };
@@ -68,10 +66,25 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-        if (m_Points > bestScore)
+        if (m_Points > HighScore.Instance.highestScore)
         {
-            highScoreText.GetComponent<Text>().text = " Best score : " + HighScore.Instance.currentPlayerName + $" {m_Points}";
+            highScoreText.GetComponent<Text>().text = "Best score : " + HighScore.Instance.currentPlayerName + $" : {m_Points}";
+            bestScore = m_Points;
+            HighScore.Instance.highScorePlayerName = HighScore.Instance.currentPlayerName;//most likely it'll work if I do it like code below or NOT XD 
+            HighScore.Instance.StoreScore(bestScore);
         }
+        else if (m_Points < HighScore.Instance.highestScore)
+        {
+
+            highScoreText.GetComponent<Text>().text = "Best score : " + HighScore.Instance.highScorePlayerName + " : " + HighScore.Instance.highestScore;
+            HighScore.Instance.StoreScore(HighScore.Instance.highestScore);
+        }
+        else
+        {
+            highScoreText.GetComponent<Text>().text = "Best score : " + HighScore.Instance.highScorePlayerName + " : " + HighScore.Instance.highestScore;
+            HighScore.Instance.StoreScore(HighScore.Instance.highestScore);
+        }
+
     }
 
 }
