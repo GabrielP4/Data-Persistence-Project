@@ -20,7 +20,8 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        highScoreText.GetComponent<Text>().text = "Best score : " + HighScore.Instance.currentPlayerName + " : " + HighScore.Instance.highestScore.ToString(); //moje
+        highScoreText.GetComponent<Text>().text = "Best score : " + HighScore.Instance.highScorePlayerName + " : " + HighScore.Instance.highestScore.ToString(); //moje
+        ScoreText.text = HighScore.Instance.currentPlayerName + $" Score : {m_Points}";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         int[] pointCountArray = new[] { 1, 1, 2, 2, 5, 5 };
@@ -73,7 +74,7 @@ public class MainManager : MonoBehaviour
             HighScore.Instance.highScorePlayerName = HighScore.Instance.currentPlayerName;//most likely it'll work if I do it like code below or NOT XD 
             HighScore.Instance.StoreScore(bestScore);
         }
-        else if (m_Points < HighScore.Instance.highestScore)
+        else if (m_Points <= HighScore.Instance.highestScore)
         {
 
             highScoreText.GetComponent<Text>().text = "Best score : " + HighScore.Instance.highScorePlayerName + " : " + HighScore.Instance.highestScore;
@@ -84,7 +85,7 @@ public class MainManager : MonoBehaviour
             highScoreText.GetComponent<Text>().text = "Best score : " + HighScore.Instance.highScorePlayerName + " : " + HighScore.Instance.highestScore;
             HighScore.Instance.StoreScore(HighScore.Instance.highestScore);
         }
-
+        HighScore.Instance.SavePlayerData();
     }
 
 }
